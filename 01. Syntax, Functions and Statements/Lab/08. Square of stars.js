@@ -7,4 +7,4 @@ function solve(num){
     }
 }
 
-solve(5);
+//solve(5);
