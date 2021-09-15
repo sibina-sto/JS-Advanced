@@ -3,4 +3,4 @@ function solve(type, grams, price){
     console.log(`I need $${(price * kg).toFixed(2)} to buy ${kg.toFixed(2)} kilograms ${type}.`)
 }
 
-solve('orange', 2500, 1.80);
+//solve('orange', 2500, 1.80);
