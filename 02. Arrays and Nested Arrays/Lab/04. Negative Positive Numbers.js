@@ -1,15 +1,19 @@
-function solve(arr) {
-    const result = [];
+//4.	Negative / Positive Numbers
 
-    for (let el of arr) {
-        if (el < 0) {
-            result.unshift(el);
-        } else {
-            result.push(el);
+function negativePositive(arr) {
+    const result = [];
+    for (let num of arr) {
+        if(num < 0){
+            result.splice(0,0,num);
+        }else if(num > 0){
+            result.push(num);
+        }else{
+            result[result.length] = num;
         }
     }
 
-    console.log(result.join('\n'));
+    return result;
 }
 
-solve([7, -2, 8, 9]);
+// console.log(negativePositive([3, -2, 0, -1]));
+// console.log(negativePositive([7, -2, 8, 9]));
