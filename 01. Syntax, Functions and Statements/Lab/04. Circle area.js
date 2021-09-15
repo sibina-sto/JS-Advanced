@@ -6,5 +6,5 @@ function solve(input){
     }
 }
 
-console.log(solve(5));
-console.log(solve('name'));
+//console.log(solve(5));
+//console.log(solve('name'));
