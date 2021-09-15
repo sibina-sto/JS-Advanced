@@ -3,4 +3,4 @@ function solve(string){
     console.log(string);
 }
 
-solve('Hello, JavaScript!');
+//solve('Hello, JavaScript!');
