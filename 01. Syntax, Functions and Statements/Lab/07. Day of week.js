@@ -12,5 +12,5 @@ function solve(day){
     return (result[day] ? result[day] : 'error')
 }
 
-console.log(solve('Monday'));
-console.log(solve('asd'));
+//console.log(solve('Monday'));
+//console.log(solve('asd'));
