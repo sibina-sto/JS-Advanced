@@ -8,4 +8,4 @@ function solve(text) {
     console.log(result);
 }
 
-solve('Hi, how are you?');
+//solve('Hi, how are you?');
