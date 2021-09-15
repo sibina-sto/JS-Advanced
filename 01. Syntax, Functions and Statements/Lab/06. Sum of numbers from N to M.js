@@ -10,4 +10,4 @@ function solve(first, second){
     return result;
 }
 
-console.log(solve('-8','20'));
+//console.log(solve('-8','20'));
