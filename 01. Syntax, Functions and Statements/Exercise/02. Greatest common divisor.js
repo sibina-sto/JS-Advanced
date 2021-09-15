@@ -8,4 +8,4 @@ function solve (a, b){
     console.log(a)
 }
 
-solve(2154, 458);
+//solve(2154, 458);
