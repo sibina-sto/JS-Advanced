@@ -24,5 +24,5 @@ function TimeToWalk(arg1, arg2, arg3) {
     );
 }
 
-TimeToWalk(4000, 0.6, 5);
-TimeToWalk(2564, 0.7, 5.5);
+//TimeToWalk(4000, 0.6, 5);
+//TimeToWalk(2564, 0.7, 5.5);
