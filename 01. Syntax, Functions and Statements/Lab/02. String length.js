@@ -4,4 +4,4 @@ function solve(first, second, third){
     console.log(Math.floor( result / 3 ));
 }
 
-solve('chocolate', 'ice cream', 'cake');
+//solve('chocolate', 'ice cream', 'cake');
