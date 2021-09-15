@@ -25,6 +25,6 @@ function solve(...input) {
     }
 }
 
-solve('32', 'chop', 'chop', 'chop', 'chop', 'chop');
+//solve('32', 'chop', 'chop', 'chop', 'chop', 'chop');
 
-solve('9', 'dice', 'spice', 'chop', 'bake', 'fillet');
+//solve('9', 'dice', 'spice', 'chop', 'bake', 'fillet');
