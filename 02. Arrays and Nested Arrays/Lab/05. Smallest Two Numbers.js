@@ -1,9 +1,9 @@
-function solve(arr) {
-    const result = arr.sort((a, b) => a - b);
+//5.	Smallest Two Numbers
 
-    console.log(`${result[0]} ${result[1]}`);
+function twoSmallest(arr) {
+    arr.sort((a,b)=> a-b);
+    let res = arr.slice(0,2);
+    return res.join(' ');
 }
 
-solve([30, 15, 50, 5]);
-
-solve([3, 0, 10, 4, 7, 3]);
+//console.log(twoSmallest([30, 15, 50, 5]));
