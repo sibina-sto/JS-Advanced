@@ -6,4 +6,4 @@ function solve(input){
     console.log(result);
 }
 
-solve(1234)
+//solve(1234)
