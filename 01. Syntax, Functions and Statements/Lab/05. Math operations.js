@@ -11,5 +11,5 @@ function solve(first, second, operation){
     return result[operation];
 }
 
-console.log(solve(5,6,'+'));
-console.log(solve(3, 5.5, '*'));
+//console.log(solve(5,6,'+'));
+//console.log(solve(3, 5.5, '*'));
