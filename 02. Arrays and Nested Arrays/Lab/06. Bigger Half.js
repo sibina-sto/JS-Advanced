@@ -1,9 +1,3 @@
-function solve(arr) {
-    const result = arr.sort((a, b) => a - b);
-
-    console.log(`[${result.splice(Math.ceil(result.length / 2)).join(', ')}]`);
+function foo(arr) {
+    return arr.sort((x, y) => x - y).slice(-Math.ceil(arr.length / 2))
 }
-
-//solve([3, 19, 14, 7, 2, 19, 6]);
-
-//solve([3, 19, 14, 7, 2, 19, 6]);
