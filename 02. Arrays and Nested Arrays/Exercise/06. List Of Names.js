@@ -5,8 +5,7 @@ function sortNames(names) {
         .slice(0)
         .sort((a, b) => a.localeCompare(b))
         .map((name, index) => {
-            let result = `${index + 1}.${name}`;
-            return result;
+            return `${index + 1}.${name}`;
         })
         .join('\n');
 }
