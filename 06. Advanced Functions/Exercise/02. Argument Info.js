@@ -15,9 +15,4 @@ function findTypeOfInput() {
         .sort((a, b) => data[b] - data[a])
         .forEach((key) => console.log(`${key} = ${data[key]}`));
 
-
 }
-
-    © 2021 GitHub, Inc.
-    Terms
-    Pri
