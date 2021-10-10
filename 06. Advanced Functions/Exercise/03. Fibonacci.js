@@ -8,3 +8,12 @@ function getFibonator() {
         return curr;
     }
 }
+
+//let fib = getFibonator();
+//console.log(fib());
+//console.log(fib());
+//console.log(fib());
+//console.log(fib());
+//console.log(fib());
+//console.log(fib());
+//console.log(fib());
