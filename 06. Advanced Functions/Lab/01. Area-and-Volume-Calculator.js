@@ -1,20 +1,9 @@
-function solve(area, vol, dataAsJSON) {
-    const figures = JSON.parse(dataAsJSON);
-
-    const result = [];
-
-    for(let figure of figures) {
-
-        const objArea = area.call(figure);
-        const objVolume = vol.call(figure);
-
-        const output = {
-            area: objArea,
-            volume : objVolume,
-        };
-
-        result.push(output);
-    }
-
-    return result;
+function foo(area, volume, inputs) {
+    return JSON.parse(inputs).reduce((a, v, i, obj) => {
+        a.push({
+            area: area.call(v),
+            volume: volume.call(v),
+        })
+        return a
+    }, [])
 }
