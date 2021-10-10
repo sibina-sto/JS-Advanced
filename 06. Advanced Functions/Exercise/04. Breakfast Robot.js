@@ -1,68 +1,65 @@
-// 87/100
+function closure() {
+    const ingreds = {
+        protein: 0,
+        carbohydrate: 0,
+        fat: 0,
+        flavour: 0,
+    }
+    const recipes = {
+        apple: parseRecipeData(0, 1, 0, 2),
+        lemonade: parseRecipeData(0, 10, 0, 20),
+        burger: parseRecipeData(0, 5, 7, 3),
+        eggs: parseRecipeData(5, 0, 1, 1),
+        turkey: parseRecipeData(10, 10, 10, 10),
+    }
 
-function solution() {
-    const recipesList = {
-        'apple': { 'carbohydrate': 1, 'flavour': 2 },
-        'lemonade': { 'carbohydrate': 10, 'flavour': 20 },
-        'burger': { 'carbohydrate': 5, 'fat': 7, 'flavour': 3 },
-        'eggs': { 'protein:': 5, 'fat': 1, 'flavour': 1 }, // here is the mistake !!!!!!
-        'turkey': { 'protein': 10, 'carbohydrate': 10, 'fat': 10, 'flavour': 10 }
-    }
- 
- 
-    let inventory = {
-        'protein': 0,
-        'carbohydrate': 0,
-        'fat': 0,
-        'flavour': 0
-    }
- 
-    function restock(product, quantity) {
-        inventory[product] += quantity
-        return 'Success'
-    }
- 
-    function prepare(recipe, quantity) {
-        let usedIngredients = {
-            'protein': 0,
-            'carbohydrate': 0,
-            'fat': 0,
-            'flavour': 0
+    function parseRecipeData(protein, carbohydrate, fat, flavour) {
+        return {
+            protein,
+            carbohydrate,
+            fat,
+            flavour,
         }
-        const allIngr = recipesList[recipe]
-        for (let ingedient in allIngr) {
-            if (inventory[ingedient] < allIngr[ingedient] * quantity) {
-                return `Error: not enough ${ingedient} in stock`
-            } else {
-                usedIngredients[ingedient] += allIngr[ingedient] * quantity
+    }
+
+    function restock(ingr, x) {
+        ingreds[ingr] += x
+        return "Success"
+    }
+
+    function prepare(required, quantity) {
+        const parsedRecipe = Object.entries(required).map(x => [
+            x[0],
+            x[1] * quantity,
+        ])
+
+        for (let i = 0; i < parsedRecipe.length; i++) {
+            const [name, amount] = parsedRecipe[i]
+            if (ingreds[name] - amount < 0) {
+                return `Error: not enough ${name} in stock`
             }
         }
-    
- 
-        for (let ingr in usedIngredients) {
-            inventory[ingr] -= usedIngredients[ingr]
-        }
- 
- 
-        return 'Success'
+
+        parsedRecipe.forEach(([name, amount]) => (ingreds[name] -= amount))
+        return "Success"
     }
- 
-    function report() {
-    return `protein=${inventory['protein']} carbohydrate=${inventory['carbohydrate']} fat=${inventory['fat']} flavour=${inventory['flavour']}`
+
+    const report = () =>
+        Object.entries(ingreds)
+            .map(([key, value]) => `${key}=${value}`)
+            .join(" ")
+
+    const actions = {
+        prepare: (r, q) => prepare(recipes[r], q),
+        restock,
+        report,
     }
- 
-    function manager(string) {
-        let data = string.split(' ')
-        if (data.includes('report')) {
-            return report()
-        } else if (data.includes('restock')) {
-            return restock(data[1], Number(data[2]))
-        } else if (data.includes('prepare')) {
-            return prepare(data[1], Number(data[2]))
-        }
- 
- 
+
+    return s => {
+        const [command, a, b] = s
+            .split(" ")
+            .map(x => (isNaN(x) ? x : Number(x)))
+
+        return actions[command](a, b)
     }
- 
-    return manager
 }
