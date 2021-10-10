@@ -33,4 +33,4 @@ function result (command) {
     return actions[command](this)
 }
 
-result.call({upvotes: 1, downvotes: 2}, 'upvote')
+//result.call({upvotes: 1, downvotes: 2}, 'upvote')
