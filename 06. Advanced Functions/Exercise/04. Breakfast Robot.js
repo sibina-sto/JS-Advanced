@@ -1,3 +1,5 @@
+// 87/100
+
 function solution() {
     const recipesList = {
         'apple': { 'carbohydrate': 1, 'flavour': 2 },
