@@ -1,9 +1,9 @@
-function sum(arr) {
-    let sum = 0
-    for (let num of arr) {
-        sum += Number(num)
-    }
-    return sum
-}
+//const { expect } = require('chai')
+//const sum = require('./SumOfNums')
 
-module.exports =  sum;
+describe('sum numbers', () => {
+    it('sums single number', () => {
+        expect(sum([1])).to.equal(1);
+        
+    });
+});
