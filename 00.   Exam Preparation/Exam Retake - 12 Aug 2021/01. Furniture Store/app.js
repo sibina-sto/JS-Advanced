@@ -1,104 +1,76 @@
 // window.addEventListener('load', solve)
 
 function solve() {
-    let buttonsOnArr = [];
+    // selecting  elements
+    const modelInput = document.getElementById("model");
+    const yearInput = document.getElementById("year");
+    const descriptionInput = document.getElementById("description");
+    const priceInput = document.getElementById("price");
+    // selecting add button
+    const buttonAdd = document.getElementById("add");
+    buttonAdd.addEventListener("click", addFurniture);
+    // selecting furniture list from the tableRows
+    const furnitureList = document.getElementById('furniture-list');
+    // total price 
+    const totalPrice = document.querySelector('.total-price');
+    // making event on the add button
 
 
-    const modelInput = document.getElementById('model');
-    const yearInput = document.getElementById('year');
-    const descriptionInput = document.getElementById('description');
-    const priceInput = document.getElementById('price');
-    const tbody = document.getElementById('furniture-list');
+    // add button function
+    function addFurniture(e) {
+        e.preventDefault();
+
+        const yearValue = Number(yearInput.value);
+        const priceValue = Number(priceInput.value);
+        if (modelInput.value != "" && descriptionInput.value != "" && yearValue > 0 && priceValue > 0) {
+            const tr = document.createElement("tr");
+            tr.classList.add("info");
+            tr.innerHTML = `<td>${modelInput.value}</td>
+                            <td>${priceValue.toFixed(2)}</td>
+                            <td><button class="moreBtn">More Info</button>
+                                <button class="buyBtn">Buy it</button>
+                            </td>`;
+            const hideTr = document.createElement("tr");
+            hideTr.classList.add("hide");
+            hideTr.innerHTML = `<td>Year: ${yearValue}</td><td colspan="3">Description: ${descriptionInput.value}</td>`
+
+            furnitureList.appendChild(tr);
+            furnitureList.appendChild(hideTr);
+
+            const moreInfoButtons = tr.querySelectorAll("button");
+            moreInfoButtons[0].addEventListener("click", showMoreInfo);
+            moreInfoButtons[1].addEventListener("click", buyFurniture);
 
 
-    let inputFields = Array.from(document.getElementsByTagName('input'));
-    inputFields.push(document.getElementsByTagName('textarea')[0]);
-    const addButton = document.getElementsByTagName('button')[0];
-    inputFields.forEach(input => {
-        input.setAttribute('required', 'true');
-    });
 
-    yearInput.setAttribute('min', '0');
-    priceInput.setAttribute('min','0');
-    addButton.addEventListener('click', addData);
-
-    function addData(ev) {
-        let model = modelInput.value;
-        let description = descriptionInput.value;
-        let year = yearInput.value;
-        let price = priceInput.value;
-
-        if(model && description && isPositiveNum(year) && isPositiveNum(price)) {
-            const trInfo = document.createElement('tr');
-            trInfo.classList.add('info');
-            const tdModel = document.createElement('td');
-            tdModel.textContent = model;
-            trInfo.appendChild(tdModel);
-            const tdPrice = document.createElement('td');
-            tdPrice.textContent = Number(price).toFixed(2);
-            trInfo.appendChild(tdPrice);
-            const tdButtons = document.createElement('td');
-            const buttonMore = document.createElement('button');
-    
-            let obj = {
-                button : buttonMore,
-                isOn : false
-            }
-            buttonsOnArr.push(obj);
-            buttonMore.classList.add('moreBtn');
-            buttonMore.textContent = 'More Info';
-            buttonMore.addEventListener('click', showText);
-            tdButtons.appendChild(buttonMore);
-            const buttonBuy = document.createElement('button');
-            buttonBuy.addEventListener('click', buy); 
-            buttonBuy.classList.add('buyBtn');
-            buttonBuy.textContent = 'Buy it';
-            tdButtons.appendChild(buttonBuy);
-            trInfo.appendChild(tdButtons);
-            tbody.appendChild(trInfo);
-            const trHidden = document.createElement('tr');
-            trHidden.classList.add('hide');
-            const tdYear = document.createElement('td');
-            tdYear.textContent = 'Year: \n' + year;
-            trHidden.appendChild(tdYear);
-            const tdDescription =  document.createElement('td');
-            tdDescription.colSpan = '3';
-            tdDescription.textContent = 'Description: ' +  description;
-            trHidden.appendChild(tdDescription);
-            tbody.appendChild(trHidden);
-            inputFields.forEach(input => input.value = '');
         }
-      
+        modelInput.value = '';
+        yearInput.value = ''
+        descriptionInput.value = ''
+        priceInput.value = ''
+
     }
 
-    function showText (ev) {
-        let currentHideRow = ev.target.parentElement.parentElement.nextElementSibling;
-        let currentHideButton = ev.target.parentElement.querySelector('button');
-        let buttonInObj = (buttonsOnArr.filter(el => el.button ===  currentHideButton));
-        buttonInObj = buttonInObj[0];
-        
-        if(!buttonInObj.isOn) {
-            buttonInObj.isOn = true;
-            currentHideRow.style.display = 'contents';
-            currentHideButton.textContent = 'Less Info';
+    function showMoreInfo(e) {
+        const moreInfoTr = e.target.parentElement.parentElement.nextElementSibling;
+        if (e.target.textContent == "More Info") {
+            e.target.textContent = "Less Info";
+            moreInfoTr.style.display = "contents";
         } else {
-            buttonInObj.isOn = false; 
-            currentHideRow.style.display = 'none';
-            currentHideButton.textContent = 'More Info';
+            e.target.textContent = "More Info";
+            moreInfoTr.style.display = "none";
         }
     }
 
-    function buy (ev){
-        let totalPriceOutput = document.getElementsByClassName('total-price')[0];
-        let priceElement = ev.target.parentElement.parentElement.querySelector('td:nth-child(2)');
-        let newPrice = (Number(priceElement.textContent) + Number(totalPriceOutput.textContent)).toFixed(2);
-        totalPriceOutput.textContent = newPrice;
-    }
+    function buyFurniture(e) {
+        const tr = e.target.parentElement.parentElement;
+        const hideTr = tr.nextElementSibling;
 
-    function isPositiveNum(num) {
-        if(num) {
-            return  Number(num) >= 0 ? true : false;
-        }
-     
+        hideTr.parentElement.removeChild(hideTr);
+
+        const price = Number(tr.querySelectorAll("td")[1].textContent);
+        totalPrice.textContent = (Number(totalPrice.textContent) + price).toFixed(2);
+
+        tr.parentElement.removeChild(tr);
     }
 }
