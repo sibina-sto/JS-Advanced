@@ -1,60 +1,46 @@
-function solve(httpObj) {
-    validateMethod(httpObj);
-    validateUri(httpObj);
-    validateVersion(httpObj);
-    validateMessage(httpObj);
-    return httpObj;
-    function validateMessage(httpObj) {
-        let propName = 'message';
-        let messageRegex = /^[^<>\\&'"]*$/;
+function RequestValidator(input) {
 
-        if (httpObj[propName] === undefined ||
-            !messageRegex.test(httpObj[propName])) {
-            throw new Error("Invalid request header: Invalid Message");
-        }
+    let validMethods = ['GET', 'POST', 'DELETE', 'CONNECT'];
+    let uriRegex = /^[a-zA-Z0-9.]+$|^\*$/g;
+    let validVersions = ['HTTP/0.9', 'HTTP/1.0', 'HTTP/1.1', 'HTTP/2.0'];
+    let message = /^[^<>\\&'"]*$/g;
 
+    if (!validMethods.includes(input.method)) {
+        throw new Error('Invalid request header: Invalid Method');
     }
 
-    function validateVersion(httpObj) {
-        let propName = 'version';
-        let validVersions = ['HTTP/0.9', 'HTTP/1.0', 'HTTP/1.1', 'HTTP/2.0'];
-        if (httpObj[propName] === undefined ||
-            !validVersions.includes(httpObj[propName])) {
-            throw new Error("Invalid request header: Invalid Version");
-        }
+    if (!input.hasOwnProperty('uri') || !input.uri.match(uriRegex)) {
+        throw new Error("Invalid request header: Invalid URI");
     }
 
-    function validateUri(httpObj) {
-        let propName = 'uri';
-        let uriRegex = /^\*$|^[a-zA-Z0-9.]+$/;
-
-        if (httpObj[propName] === undefined || 
-            !uriRegex.test(httpObj[propName])) {
-            throw new Error("Invalid request header: Invalid URI");
-        }
-
+    if (!validVersions.includes(input.version)) {
+        throw new Error('Invalid request header: Invalid Version');
     }
 
-    function validateMethod(httpObj) {
-        let validMethods = ['GET', 'POST', 'DELETE', 'CONNECT'];
-        let propName = 'method';
-
-        if (httpObj[propName] === undefined ||
-            !validMethods.includes(httpObj[propName])) {
-            throw new Error("Invalid request header: Invalid Method")
-
-        }
+    if (!input.hasOwnProperty('message') || !input.message.match(message)) {
+        throw new Error("Invalid request header: Invalid Message");
     }
+
+    return input;
 }
-try {
-    console.log(solve({
-        method: 'OPTIONS',
-        uri: 'git.master',
-        version: 'HTTP/1.1',
-        message: '-recursive'
-      }
-      
-    ))
-} catch (e) {
-    console.log(e.message)
-}
+
+// console.log(RequestValidator(`{
+    method: 'GET',
+    uri: 'svn.public.catalog',
+    version: 'HTTP/1.1',
+    message: ''
+  }
+  `))
+console.log(RequestValidator(`{
+    method: 'OPTIONS',
+    uri: 'git.master',
+    version: 'HTTP/1.1',
+    message: '-recursive'
+  }
+  `))
+console.log(RequestValidator(`{
+    method: 'POST',
+    uri: 'home.bash',
+    message: 'rm -rf /*'
+  }
+  `))
