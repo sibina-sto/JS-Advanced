@@ -1,14 +1,17 @@
-const { expect } = require('chai');
-const isOddOrEven = require('./02.EvenOrOdd');
+// const { expect } = require('chai')
+// const isOddOrEven = require('./evenOrOdd')
 
-describe('testing isOddOrEven function', () => {
-    it('non string test', () => {
-        expect(isOddOrEven(1)).to.equal(undefined);
-    });
-    it('even string test', () => {
-        expect(isOddOrEven('Flower')).to.equal('even');
-    });
-    it('odd string test', () => {
-        expect(isOddOrEven('Cat')).to.equal('odd');
-    });
-});
+describe(`checks if length of passed string is odd or even`, () => {
+    it(`inout -> (a) -> odd`, () => {
+        expect(isOddOrEven('a')).to.eq('odd')
+    })
+    it(`input -> aa -> even`, () => {
+        expect(isOddOrEven('aa')).to.eq('even')
+    })
+    it(`input -> 1 -> undefined`, () => {
+        expect(isOddOrEven(1)).to.eq(undefined)
+    })
+    it(`input -> [a,a] -> undefined`, () => {
+        expect(isOddOrEven(['a', 'a'])).to.eq(undefined)
+    })
+})
